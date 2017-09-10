@@ -3,20 +3,22 @@ package application.sketch;
 import java.awt.Dimension;
 
 import application.gui.canvas.SketchCanvas;
-import application.math.noise.PerlinNoiseGenerator;
+import application.math.MathUtils;
 import application.math.noise.SimplexNoise;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
+import mikera.math.PerlinNoise;
 
 public class PerlinGrayShades extends Sketch {
-    private double               xOff        = 0.0;
-    private double               yOff        = 0.0;
-    private double               zOff        = 0.0;
-    private final Dimension      DEFAULT_DIM = new Dimension(650, 420);
-    private Dimension            dim;
-    private boolean              usePerlin;                               // true -> PerlinNoiseGenerator, false -> SimplexNoise
-    private PerlinNoiseGenerator perlin      = new PerlinNoiseGenerator();
+    private double          xOff        = 0.0;
+    private double          yOff        = 0.0;
+    private double          zOff        = 0.0;
+    private final Dimension DEFAULT_DIM = new Dimension(650, 420);
+    private Dimension       dim;
+    private boolean         usePerlin;                            // true -> PerlinNoiseGenerator, false -> SimplexNoise
+    // private PerlinNoiseGenerator perlin = new PerlinNoiseGenerator();
+    private PerlinNoise     perlin      = new PerlinNoise();
 
     public PerlinGrayShades() {
         this(true);
@@ -55,7 +57,8 @@ public class PerlinGrayShades extends Sketch {
             drawY = (H / 2) - (dim.height / 2);
             for (int y = 0; y < dim.height; y++) {
                 if (usePerlin)
-                    grayShade = perlin.grayShadeForNoise(xOff, yOff, zOff);
+                    // grayShade = perlin.grayShadeForNoise(xOff, yOff, zOff);
+                    grayShade = MathUtils.fastfloor(MathUtils.map(perlin.noise3(xOff, yOff, zOff), -1.0, 1.0, 0, 255));
                 else
                     grayShade = SimplexNoise.grayShadeForNoise(xOff, yOff, zOff);
                 // System.out.println("(" + x + "," + y + ") -> " + grayShade);
