@@ -7,7 +7,7 @@ import application.math.random.LinearCongruentialGenerator;
  * Adaptation of the p5.js noise() function.<br>
  * See their project at p5js.org
  */
-public class PerlinNoiseGenerator implements NoiseGenerator {
+public class Perlin extends NoiseGenerator {
     private int      PERLIN_YWRAPB      = 4;
     private int      PERLIN_YWRAP       = 1 << PERLIN_YWRAPB;
     private int      PERLIN_ZWRAPB      = 8;
@@ -19,7 +19,7 @@ public class PerlinNoiseGenerator implements NoiseGenerator {
 
     private double[] random_samples;
 
-    public PerlinNoiseGenerator() {
+    public Perlin() {
         random_samples = new double[PERLIN_SIZE + 1];
         for (int i = 0; i < PERLIN_SIZE + 1; i++) {
             random_samples[i] = Math.random();
@@ -28,12 +28,12 @@ public class PerlinNoiseGenerator implements NoiseGenerator {
 
     @Override
     public double noise(double x) {
-        return noise(x, 0, 0);
+        return noise(x, 0.0, 0.0);
     }
 
     @Override
     public double noise(double x, double y) {
-        return noise(x, y, 0);
+        return noise(x, y, 0.0);
     }
 
     @Override
@@ -116,20 +116,12 @@ public class PerlinNoiseGenerator implements NoiseGenerator {
         }
     }
 
-    public void noiseSeed(long seed) {
+    public void reseed(long seed) {
         LinearCongruentialGenerator lcg = new LinearCongruentialGenerator();
 
         lcg.setSeed(seed);
         for (int i = 0; i < PERLIN_SIZE + 1; i++) {
             random_samples[i] = lcg.rand();
         }
-    }
-
-    public int mapToInt(double noiseValue, int min, int max) {
-        return (int) MathUtils.map(noiseValue, 0.0, 1.0, min, max);
-    }
-
-    public int grayShadeForNoise(double x, double y, double z) {
-        return mapToInt(noise(x, y, z), 0, 255);
     }
 }
