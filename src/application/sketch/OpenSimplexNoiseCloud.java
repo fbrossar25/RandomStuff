@@ -1,9 +1,11 @@
 package application.sketch;
 
-public class SimplexGrayShades extends PerlinGrayShades {
+import application.math.noise.OpenSimplex;
 
-    public SimplexGrayShades() {
-        super(false); // false to use simplex instead of perlin
+public class OpenSimplexNoiseCloud extends NoiseCloud {
+
+    public OpenSimplexNoiseCloud() {
+        super(new OpenSimplex());
     }
 
 }
