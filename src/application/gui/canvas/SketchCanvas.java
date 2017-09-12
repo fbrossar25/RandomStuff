@@ -152,7 +152,7 @@ public class SketchCanvas extends AutoUpdateCanvas {
     }
 
     public void image(Image img) {
-        image(img, 0, 0);
+        ctx.drawImage(img, (getWidth() / 2) - (img.getWidth() / 2), (getHeight() / 2) - (img.getHeight() / 2));
     }
 
     public void image(Image img, int x, int y) {
