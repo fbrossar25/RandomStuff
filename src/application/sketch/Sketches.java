@@ -3,9 +3,9 @@ package application.sketch;
 import application.gui.dialogs.ExceptionDialog;
 
 public enum Sketches {
-    RANDOM_COUNT(RandomCount.class, "Random count"), RANDOM_GRAY_SHADES(RandomGrayShades.class, "Random Gray Shades"), PERLIN_CLOUD(
-            PerlinNoiseCloud.class,
-            "Perlin Noise Gray Shades"), SIMPLEX_CLOUD(OpenSimplexNoiseCloud.class, "OpenSimplex Noise Gray Shades");
+    RANDOM_COUNT(RandomCount.class, "Random count"), RANDOM_GRAY_SHADES(RandomGrayShades.class, "Random Gray Shades"), SIMPLEX_CLOUD(
+            OpenSimplexNoiseCloud.class,
+            "OpenSimplex Noise Gray Shades"), IMPROVED_PERLIN_CLOUD(ImprovedPerlinNoiseCloud.class, "Improved Perlin Noise Gray Shades");
 
     private final Class<? extends Sketch> sketchClass;
     private String                        display;
