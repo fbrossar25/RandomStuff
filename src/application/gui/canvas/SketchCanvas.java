@@ -162,4 +162,8 @@ public class SketchCanvas extends AutoUpdateCanvas {
     public void image(Image img, int x, int y, int w, int h) {
         ctx.drawImage(img, x, y, w, h);
     }
+
+    public void line(double x1, double y1, double x2, double y2) {
+        ctx.strokeLine(x1, y1, x2, y2);
+    }
 }
