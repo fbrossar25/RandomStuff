@@ -40,7 +40,7 @@ public class ImprovedPerlin extends NoiseGenerator {
         reseed(seed);
     }
 
-    public double perlin(double x, double y, double z) {
+    private double perlin(double x, double y, double z) {
         x += seed;
         y += seed;
         z += seed;
@@ -83,7 +83,7 @@ public class ImprovedPerlin extends NoiseGenerator {
         return value;
     }
 
-    public int inc(int num) {
+    private int inc(int num) {
         num++;
         if (repeat > 0)
             num %= repeat;
@@ -91,32 +91,27 @@ public class ImprovedPerlin extends NoiseGenerator {
         return num;
     }
 
-    public static double grad(int hash, double x, double y, double z) {
-        int h = hash & 15;
-        double u = h < 8 ? x : y;
+    /*
+     * private static double grad(int hash, double x, double y, double z) { int h =
+     * hash & 15; double u = h < 8 ? x : y;
+     *
+     * double v;
+     *
+     * if (h < 4) v = y; else if (h == 12 || h == 14) v = x; else v = z;
+     *
+     * return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v); }
+     */
 
-        double v;
-
-        if (h < 4)
-            v = y;
-        else if (h == 12 || h == 14)
-            v = x;
-        else
-            v = z;
-
-        return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v);
-    }
-
-    public static double fade(double t) {
+    private static double fade(double t) {
         return t * t * t * (t * (t * 6 - 15) + 10);
     }
 
-    public static double lerp(double a, double b, double x) {
+    private static double lerp(double a, double b, double x) {
         return a + x * (b - a);
     }
 
     // Faster and simplier than grad()
-    private static double grad2(int hash, double x, double y, double z) {
+    private static double grad(int hash, double x, double y, double z) {
         switch (hash & 0xF) {
         case 0x0:
             return x + y;
