@@ -15,7 +15,7 @@ public class NoiseCloud extends Sketch {
     protected final Dimension DEFAULT_DIM = new Dimension(650, 420);
     private Dimension         dim;
     private NoiseGenerator    noiseGen;
-    private double            xPadding    = 0.1, yPadding = 0.1, zPadding = 0.01;
+    private double            xPadding    = 0.1, yPadding = 0.1, zPadding = 0.02;
 
     protected NoiseCloud(NoiseGenerator generator) {
         super("Noise Gray Shades");
@@ -31,7 +31,7 @@ public class NoiseCloud extends Sketch {
 
     @Override
     public void setup(SketchCanvas canvas) {
-    	canvas.clear();
+        canvas.clear();
     }
 
     @Override
