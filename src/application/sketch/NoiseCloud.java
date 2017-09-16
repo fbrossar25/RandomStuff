@@ -31,6 +31,7 @@ public class NoiseCloud extends Sketch {
 
     @Override
     public void setup(SketchCanvas canvas) {
+    	canvas.clear();
     }
 
     @Override
