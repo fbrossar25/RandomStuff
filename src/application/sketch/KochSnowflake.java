@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import application.gui.canvas.SketchCanvas;
+import application.math.Segment;
 
 public class KochSnowflake extends Sketch {
     private int     currentLevel      = 0;
@@ -75,23 +76,5 @@ public class KochSnowflake extends Sketch {
         s4.yf = s.yf;
         drawSnowFlake(canvas, s4, level - 1);
 
-    }
-
-    private static class Segment {
-        double xi = 0.0, xf = 0.0, yi = 0.0, yf = 0.0;
-
-        Segment() {
-        }
-
-        Segment(double xi, double xf, double yi, double yf) {
-            this.xi = xi;
-            this.xf = xf;
-            this.yi = yi;
-            this.yf = yf;
-        }
-
-        void draw(SketchCanvas canvas) {
-            canvas.line(xi, yi, xf, yf);
-        }
     }
 }
