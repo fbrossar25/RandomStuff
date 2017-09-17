@@ -1,7 +1,8 @@
-package application.sketch;
+package application.sketch.random;
 
 import application.gui.canvas.SketchCanvas;
 import application.math.random.RandomUtils;
+import application.sketch.Sketch;
 import javafx.scene.paint.Color;
 
 public class RandomCount extends Sketch {
