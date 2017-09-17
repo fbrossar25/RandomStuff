@@ -1,5 +1,6 @@
 package application.gui.canvas;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -42,4 +43,6 @@ public interface Drawable {
     void image(Image img, int x, int y, int w, int h);
 
     void line(double x1, double y1, double x2, double y2);
+
+    GraphicsContext getContext();
 }
