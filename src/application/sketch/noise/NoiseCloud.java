@@ -1,24 +1,29 @@
-package application.sketch;
+package application.sketch.noise;
 
 import java.awt.Dimension;
+import java.util.Random;
 
 import application.gui.canvas.SketchCanvas;
 import application.math.noise.NoiseGenerator;
+import application.sketch.Sketch;
 import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
 public class NoiseCloud extends Sketch {
-    private double            xOff        = 0.0;
-    private double            yOff        = 0.0;
-    private double            zOff        = 0.0;
-    protected final Dimension DEFAULT_DIM = new Dimension(650, 420);
-    private Dimension         dim;
-    private NoiseGenerator    noiseGen;
-    private double            xPadding    = 0.1, yPadding = 0.1, zPadding = 0.02;
+    private double                xOff        = 0.0;
+    private double                yOff        = 0.0;
+    private double                zOff        = 0.0;
+    public static final Dimension DEFAULT_DIM = new Dimension(650, 420);
+    private Dimension             dim;
+    private NoiseGenerator        noiseGen;
+    private double                xPadding    = 0.02;
+    private double                yPadding    = 0.02;
+    private double                zPadding    = 0.01;
+    private Random                seedGen     = new Random();
 
-    protected NoiseCloud(NoiseGenerator generator) {
-        super("Noise Gray Shades");
+    protected NoiseCloud(String name, NoiseGenerator generator) {
+        super(name);
         dim = new Dimension(DEFAULT_DIM);
         noiseGen = generator;
     }
@@ -31,7 +36,7 @@ public class NoiseCloud extends Sketch {
 
     @Override
     public void setup(SketchCanvas canvas) {
-        canvas.clear();
+        noiseGen.reseed(seedGen.nextLong());
     }
 
     @Override
@@ -42,6 +47,7 @@ public class NoiseCloud extends Sketch {
     public void draw(SketchCanvas canvas) {
         // int W = (int) canvas.getWidth();
         // int H = (int) canvas.getHeight();
+        canvas.clear();
         int W = dim.width;
         int H = dim.height;
         if (W <= 0 || H <= 0)
