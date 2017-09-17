@@ -1,4 +1,4 @@
-package application.math;
+package application.math.geom;
 
 import application.gui.canvas.Drawable;
 import application.gui.canvas.Drawer;
@@ -14,6 +14,16 @@ public class Segment implements Drawer {
         this.xf = xf;
         this.yi = yi;
         this.yf = yf;
+    }
+
+    // xi <-> xf && yi <-> yf
+    public void revert() {
+        double t = xi;
+        xi = xf;
+        xf = t;
+        t = yi;
+        yi = yf;
+        yf = t;
     }
 
     @Override
