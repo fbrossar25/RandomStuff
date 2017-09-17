@@ -1,6 +1,7 @@
 package application.sketch;
 
 import application.gui.dialogs.ExceptionDialog;
+import application.sketch.fractal.FractalNoise;
 import application.sketch.fractal.KochSnowflake;
 import application.sketch.fractal.RandomFractal;
 import application.sketch.noise.ImprovedPerlinNoiseCloud;
@@ -11,8 +12,8 @@ import application.sketch.random.RandomGrayShades;
 public enum Sketches {
     RANDOM_COUNT(RandomCount.class, "Random count"), RANDOM_GRAY_SHADES(RandomGrayShades.class, "Random Gray Shades"), SIMPLEX_CLOUD(
             OpenSimplexNoiseCloud.class, "OpenSimplex Noise Gray Shades"), IMPROVED_PERLIN_CLOUD(ImprovedPerlinNoiseCloud.class,
-                    "Improved Perlin Noise Gray Shades"), KOCH_SNOWFLAKE(KochSnowflake.class,
-                            "Koch Snowflake"), RANDOM_FRACTAL(RandomFractal.class, "Random Fractal");
+                    "Improved Perlin Noise Gray Shades"), FRACTAL_NOISE(FractalNoise.class, "Fractal Noise"), KOCH_SNOWFLAKE(
+                            KochSnowflake.class, "Koch Snowflake"), RANDOM_FRACTAL(RandomFractal.class, "Random Fractal");
 
     private final Class<? extends Sketch> sketchClass;
     private String                        display;
