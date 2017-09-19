@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.Random;
 
 import application.gui.canvas.SketchCanvas;
+import application.gui.controls.SketchControls;
 import application.math.MathUtils;
 import application.math.noise.ImprovedPerlin;
 import application.math.noise.NoiseGenerator;
@@ -36,14 +37,14 @@ public class FractalNoise extends Sketch {
     }
 
     @Override
-    public void setup(SketchCanvas canvas) {
+    public void setup() {
         noise.reseed(rand.nextLong());
         octaves = DEFAULT_OCTAVES;
         init();
     }
 
     @Override
-    public void update(SketchCanvas canvas) {
+    public void update() {
     }
 
     @Override
@@ -97,5 +98,11 @@ public class FractalNoise extends Sketch {
         }
         return MathUtils.map(value, 0.0, octavesWeightsSum, 0.0, 1.0);
     }
+
+	@Override
+	public SketchControls getControls() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

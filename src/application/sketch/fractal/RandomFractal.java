@@ -1,6 +1,7 @@
 package application.sketch.fractal;
 
 import application.gui.canvas.SketchCanvas;
+import application.gui.controls.SketchControls;
 import application.sketch.Sketch;
 
 public class RandomFractal extends Sketch {
@@ -13,11 +14,11 @@ public class RandomFractal extends Sketch {
     }
 
     @Override
-    public void setup(SketchCanvas canvas) {
+    public void setup() {
     }
 
     @Override
-    public void update(SketchCanvas canvas) {
+    public void update() {
 
     }
 
@@ -26,4 +27,10 @@ public class RandomFractal extends Sketch {
         canvas.clear();
 
     }
+    
+    @Override
+	public SketchControls getControls() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

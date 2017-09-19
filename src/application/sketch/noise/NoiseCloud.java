@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.Random;
 
 import application.gui.canvas.SketchCanvas;
+import application.gui.controls.SketchControls;
 import application.math.noise.NoiseGenerator;
 import application.sketch.Sketch;
 import javafx.scene.image.PixelWriter;
@@ -35,12 +36,12 @@ public class NoiseCloud extends Sketch {
     }
 
     @Override
-    public void setup(SketchCanvas canvas) {
+    public void setup() {
         noiseGen.reseed(seedGen.nextLong());
     }
 
     @Override
-    public void update(SketchCanvas canvas) {
+    public void update() {
     }
 
     @Override
@@ -71,4 +72,10 @@ public class NoiseCloud extends Sketch {
         zOff += zPadding;
         canvas.image(img);
     }
+    
+    @Override
+	public SketchControls getControls() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

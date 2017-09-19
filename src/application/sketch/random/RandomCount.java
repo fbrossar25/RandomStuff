@@ -1,6 +1,8 @@
 package application.sketch.random;
 
 import application.gui.canvas.SketchCanvas;
+import application.gui.controls.SketchControls;
+import application.gui.controls.sketch.RandomControls;
 import application.math.random.RandomUtils;
 import application.sketch.Sketch;
 import javafx.scene.paint.Color;
@@ -15,15 +17,14 @@ public class RandomCount extends Sketch {
     }
 
     @Override
-    public void setup(SketchCanvas canvas) {
+    public void setup() {
         for (int i = 0; i < counters.length; i++) {
             counters[i] = 0;
         }
-        canvas.setBackgroundColor(Color.WHITE);
     }
 
     @Override
-    public void update(SketchCanvas canvas) {
+    public void update() {
         int idx = RandomUtils.randomIntInclusive(counters.length - 1);
         counters[idx]++;
     }
@@ -41,6 +42,11 @@ public class RandomCount extends Sketch {
             canvas.fillText(counters[i], i * rectWidth + 3, canvas.getHeight() - 10);
         }
     }
+    
+    @Override
+	public SketchControls getControls() {
+		return new RandomControls(this);
+	}
 
     @Override
     public String toString() {

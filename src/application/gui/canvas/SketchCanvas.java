@@ -47,7 +47,7 @@ public class SketchCanvas extends AutoUpdateCanvas {
     public void draw() {
         if (sketch == null)
             return;
-        sketch.update(this);
+        sketch.update();
         sketch.draw(this);
     }
 
@@ -66,13 +66,13 @@ public class SketchCanvas extends AutoUpdateCanvas {
         this.sketch = sketch;
         if (sketch == null)
             return;
-        sketch.setup(this);
+        sketch.setup();
     }
 
     public void resetSketch() {
         if (sketch == null)
             return;
-        sketch.reset(this);
+        sketch.reset();
     }
 
     public void clear() {

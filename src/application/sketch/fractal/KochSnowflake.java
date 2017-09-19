@@ -4,6 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import application.gui.canvas.SketchCanvas;
+import application.gui.controls.SketchControls;
 import application.math.MathUtils;
 import application.math.geom.Segment;
 import application.sketch.Sketch;
@@ -52,22 +53,21 @@ public class KochSnowflake extends Sketch {
     }
 
     @Override
-    public void setup(SketchCanvas canvas) {
+    public void setup() {
         currentLevel = 0;
         if (timer != null)
             timer.cancel();
         timer = new Timer();
-        canvas.noLoop();
-        canvas.draw();
     }
 
     @Override
-    public void update(SketchCanvas canvas) {
+    public void update() {
     }
 
     @Override
     public void draw(SketchCanvas canvas) {
         canvas.clear();
+        canvas.noLoop();
         length = Math.min(canvas.getWidth() / 3.0, canvas.getHeight() / 3.0);
         initSegments(canvas.getWidth() / 2.0, canvas.getHeight() / 2.0);
         currentLevel %= MAX_LEVELS;
@@ -138,6 +138,12 @@ public class KochSnowflake extends Sketch {
         drawSnowflake(canvas, s4, level - 1, reverse);
     }
 
+    @Override
+	public SketchControls getControls() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
     @Override
     protected void finalize() throws Throwable {
         super.finalize();

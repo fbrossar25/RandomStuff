@@ -3,6 +3,7 @@ package application.sketch.random;
 import java.awt.Dimension;
 
 import application.gui.canvas.SketchCanvas;
+import application.gui.controls.SketchControls;
 import application.math.random.RandomUtils;
 import application.sketch.Sketch;
 import javafx.scene.image.PixelWriter;
@@ -19,11 +20,11 @@ public class RandomGrayShades extends Sketch {
     }
 
     @Override
-    public void setup(SketchCanvas canvas) {
+    public void setup() {
     }
 
     @Override
-    public void update(SketchCanvas canvas) {
+    public void update() {
     }
 
     @Override
@@ -48,4 +49,10 @@ public class RandomGrayShades extends Sketch {
         canvas.image(img);
     }
 
+    
+    @Override
+	public SketchControls getControls() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -1,6 +1,7 @@
 package application.sketch;
 
 import application.gui.canvas.SketchCanvas;
+import application.gui.controls.SketchControls;
 
 public abstract class Sketch {
 
@@ -16,13 +17,15 @@ public abstract class Sketch {
         this.name = name;
     }
 
-    public abstract void setup(SketchCanvas canvas);
+    public abstract void setup();
 
-    public abstract void update(SketchCanvas canvas);
+    public abstract void update();
 
     public abstract void draw(SketchCanvas canvas);
 
-    public void reset(SketchCanvas canvas) {
-        setup(canvas);
+    public void reset() {
+        setup();
     }
+    
+    public abstract SketchControls getControls();
 }
