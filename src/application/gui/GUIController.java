@@ -16,7 +16,6 @@ public class GUIController {
     private SketchCanvas     canvas;
     private SketchCanvasPane canvasPane;
     private ControlsPane     controlsPane;
-    private SketchControlsStage controlsStage;
 
     public GUIController(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -36,7 +35,6 @@ public class GUIController {
         root.setBottom(controlsPane);
 
         initStage();
-        initControlsStage();
     }
 
     private void initStage() {
@@ -48,16 +46,6 @@ public class GUIController {
         primaryStage.setResizable(true);
         primaryStage.show();
     }
-    
-    private void initControlsStage() {
-    	controlsStage = new SketchControlsStage();
-        primaryStage.setMinWidth(800);
-        primaryStage.setMinHeight(600);
-        primaryStage.setWidth(800);
-        primaryStage.setHeight(600);
-    	controlsStage.setResizable(true);
-    	controlsStage.show();
-   }
 
     public SketchCanvas getCanvas() {
         return canvas;

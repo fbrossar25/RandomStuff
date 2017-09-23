@@ -26,6 +26,6 @@ public abstract class Sketch {
     public void reset() {
         setup();
     }
-    
+
     public abstract SketchControls getControls();
 }

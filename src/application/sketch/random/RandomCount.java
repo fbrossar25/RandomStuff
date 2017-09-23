@@ -5,7 +5,6 @@ import application.gui.controls.SketchControls;
 import application.gui.controls.sketch.RandomControls;
 import application.math.random.RandomUtils;
 import application.sketch.Sketch;
-import javafx.scene.paint.Color;
 
 public class RandomCount extends Sketch {
 
@@ -42,11 +41,11 @@ public class RandomCount extends Sketch {
             canvas.fillText(counters[i], i * rectWidth + 3, canvas.getHeight() - 10);
         }
     }
-    
+
     @Override
-	public SketchControls getControls() {
-		return new RandomControls(this);
-	}
+    public SketchControls getControls() {
+        return new RandomControls(this);
+    }
 
     @Override
     public String toString() {
