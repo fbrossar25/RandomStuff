@@ -1,7 +1,9 @@
 package application.sketch.noise;
 
 import java.awt.Dimension;
+import java.util.ArrayList;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 import application.gui.canvas.SketchCanvas;
 import application.gui.controls.SketchControls;
@@ -12,8 +14,6 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 
 public class NoiseCloud extends Sketch {
-    private double                xOff        = 0.0;
-    private double                yOff        = 0.0;
     private double                zOff        = 0.0;
     public static final Dimension DEFAULT_DIM = new Dimension(650, 420);
     private Dimension             dim;
@@ -22,6 +22,7 @@ public class NoiseCloud extends Sketch {
     private double                yPadding    = 0.02;
     private double                zPadding    = 0.01;
     private Random                seedGen     = new Random();
+    private ArrayList<Thread>     threadList  = new ArrayList<>();
 
     protected NoiseCloud(String name, NoiseGenerator generator) {
         super(name);
@@ -46,8 +47,8 @@ public class NoiseCloud extends Sketch {
 
     @Override
     public void draw(SketchCanvas canvas) {
-        // int W = (int) canvas.getWidth();
-        // int H = (int) canvas.getHeight();
+        if (!threadList.isEmpty())
+            threadList.clear();
         canvas.clear();
         int W = dim.width;
         int H = dim.height;
@@ -55,27 +56,20 @@ public class NoiseCloud extends Sketch {
             return;
         WritableImage img = new WritableImage(W, H);
         PixelWriter pw = img.getPixelWriter();
-        xOff = 0.0;
-        int drawX = (W / 2) - (dim.width / 2);
-        int drawY;
-        for (int x = 0; x < W; x++) {
-            yOff = 0.0;
-            drawY = (H / 2) - (dim.height / 2);
+        IntStream.range(0, W).parallel().forEach((i) -> {
+            double xOff = i * xPadding, yOff = 0.0;
             for (int y = 0; y < H; y++) {
-                pw.setColor(drawX, drawY, Color.gray(noiseGen.grayForNoise(xOff, yOff, zOff)));
+                pw.setColor(i, y, Color.gray(noiseGen.grayForNoise(xOff, yOff, zOff)));
                 yOff += yPadding;
-                drawY++;
             }
-            xOff += xPadding;
-            drawX++;
-        }
+        });
         zOff += zPadding;
         canvas.image(img);
     }
-    
+
     @Override
-	public SketchControls getControls() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public SketchControls getControls() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 }

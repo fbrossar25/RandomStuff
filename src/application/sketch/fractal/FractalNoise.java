@@ -2,6 +2,7 @@ package application.sketch.fractal;
 
 import java.awt.Dimension;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 import application.gui.canvas.SketchCanvas;
 import application.gui.controls.SketchControls;
@@ -18,14 +19,12 @@ public class FractalNoise extends Sketch {
     private Dimension             dim;
     private double                xPadding        = 0.02;
     private double                yPadding        = 0.02;
-    private double                zPadding        = 0.05;
-    private double                xOff            = 0.0;
-    private double                yOff            = 0.0;
+    private double                zPadding        = 0.01;
     private double                zOff            = 0.0;
     protected NoiseGenerator      noise;
     private Random                rand;
     private int                   octaves;
-    private static final int      DEFAULT_OCTAVES = 3;                      // 1 means for classic noise
+    private static final int      DEFAULT_OCTAVES = 4;                      // 1 means for classic noise
     private double[]              octavesWeights;
     private double                octavesWeightsSum;
 
@@ -56,20 +55,13 @@ public class FractalNoise extends Sketch {
             return;
         WritableImage img = new WritableImage(W, H);
         PixelWriter pw = img.getPixelWriter();
-        xOff = 0.0;
-        int drawX = (W / 2) - (dim.width / 2);
-        int drawY;
-        for (int x = 0; x < W; x++) {
-            yOff = 0.0;
-            drawY = (H / 2) - (dim.height / 2);
+        IntStream.range(0, W).parallel().forEach((i) -> {
+            double yOff = 0.0;
             for (int y = 0; y < H; y++) {
-                pw.setColor(drawX, drawY, Color.gray(octaveNoise()));
+                pw.setColor(i, y, Color.gray(octaveNoise(i * xPadding, yOff)));
                 yOff += yPadding;
-                drawY++;
             }
-            xOff += xPadding;
-            drawX++;
-        }
+        });
         zOff += zPadding;
         canvas.image(img);
     }
@@ -89,7 +81,7 @@ public class FractalNoise extends Sketch {
         }
     }
 
-    private double octaveNoise() {
+    private double octaveNoise(double xOff, double yOff) {
         double value = 0.0;
         int octave = 1;
         for (int i = 0; i < octaves; i++) {
@@ -99,10 +91,10 @@ public class FractalNoise extends Sketch {
         return MathUtils.map(value, 0.0, octavesWeightsSum, 0.0, 1.0);
     }
 
-	@Override
-	public SketchControls getControls() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public SketchControls getControls() {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }
