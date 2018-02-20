@@ -62,3 +62,6 @@ local.properties
 .worksheet
 
 build/
+
+.idea
+*.iml
