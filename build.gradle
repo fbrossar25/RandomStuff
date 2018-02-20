@@ -1,0 +1,35 @@
+buildscript {
+    dependencies {
+        classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
+    }
+    
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+}
+
+apply plugin: 'java'
+
+repositories {
+	mavenLocal()
+    mavenCentral()
+}
+
+apply plugin: 'javafx-gradle-plugin'
+
+jfx {
+    mainClass = 'application.Main'
+    jfxAppOutputDir = "build/jfx/app"
+    jfxMainAppJarName = "RandomStuff.jar"
+    libFolderName = "lib"
+    vendor = 'fbrossar25'
+}
+
+dependencies {
+	
+}
+
+// Apply the java-library plugin to add support for Java Library
+apply plugin: 'java-library'
+apply plugin: 'eclipse'

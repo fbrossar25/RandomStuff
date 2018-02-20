@@ -1,7 +1,6 @@
 package application;
 
 import application.gui.GUIController;
-//TODO use OpenSimplex because Simplex is patended
 import application.gui.dialogs.ExceptionDialog;
 import javafx.application.Application;
 import javafx.application.Platform;
