@@ -24,9 +24,12 @@ public class FractalNoise extends Sketch {
     protected NoiseGenerator      noise;
     private Random                rand;
     private int                   octaves;
+    private static double[]       octavesDiv;
     private static final int      DEFAULT_OCTAVES = 4;                      // 1 means for classic noise
     private double[]              octavesWeights;
     private double                octavesWeightsSum;
+    private long                  nanoTimeTotal   = 0;
+    private long                  nanoTimeCount   = 0;
 
     public FractalNoise() {
         super("Fractal Noise");
@@ -39,7 +42,16 @@ public class FractalNoise extends Sketch {
     public void setup() {
         noise.reseed(rand.nextLong());
         octaves = DEFAULT_OCTAVES;
-        init();
+        octavesDiv = new double[octaves];
+        octavesWeights = new double[octaves];
+        octavesWeightsSum = 0.0;
+        int octave = 1;
+        for (int i = 0; i < octaves; i++) {
+            octavesDiv[i] = octave;
+            octavesWeights[i] = 1.0 / octave;
+            octavesWeightsSum += octavesWeights[i];
+            octave <<= 1;
+        }
     }
 
     @Override
@@ -48,6 +60,7 @@ public class FractalNoise extends Sketch {
 
     @Override
     public void draw(SketchCanvas canvas) {
+        long end, begin = System.nanoTime();
         canvas.clear();
         int W = dim.width;
         int H = dim.height;
@@ -55,38 +68,27 @@ public class FractalNoise extends Sketch {
             return;
         WritableImage img = new WritableImage(W, H);
         PixelWriter pw = img.getPixelWriter();
-        IntStream.range(0, W).parallel().forEach((i) -> {
+        IntStream.range(0, W).parallel().forEach(x -> {
             double yOff = 0.0;
             for (int y = 0; y < H; y++) {
-                pw.setColor(i, y, Color.gray(octaveNoise(i * xPadding, yOff)));
+                pw.setColor(x, y, Color.gray(octaveNoise(x * xPadding, yOff)));
                 yOff += yPadding;
             }
         });
+        end = System.nanoTime();
+        nanoTimeCount++;
+        nanoTimeTotal += end - begin;
+        if (nanoTimeCount % 50 == 0) {
+            System.out.println("Average compute time : " + (nanoTimeTotal / nanoTimeCount) / 1000000 + " ms");
+        }
         zOff += zPadding;
         canvas.image(img);
     }
 
-    private void init() {
-        initOctavesWeights();
-    }
-
-    private void initOctavesWeights() {
-        octavesWeights = new double[octaves];
-        octavesWeightsSum = 0.0;
-        int octave = 1;
-        for (int i = 0; i < octaves; i++) {
-            octavesWeights[i] = 1.0 / octave;
-            octavesWeightsSum += octavesWeights[i];
-            octave <<= 1;
-        }
-    }
-
     private double octaveNoise(double xOff, double yOff) {
         double value = 0.0;
-        int octave = 1;
         for (int i = 0; i < octaves; i++) {
-            value += noise.grayForNoise(octave * xOff, octave * yOff, zOff) * octavesWeights[i];
-            octave <<= 1; // octave *= 2;
+            value += noise.grayForNoise(octavesDiv[i] * xOff, octavesDiv[i] * yOff, zOff) * octavesWeights[i];
         }
         return MathUtils.map(value, 0.0, octavesWeightsSum, 0.0, 1.0);
     }

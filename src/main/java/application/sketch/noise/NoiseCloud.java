@@ -1,7 +1,6 @@
 package application.sketch.noise;
 
 import java.awt.Dimension;
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -22,7 +21,8 @@ public class NoiseCloud extends Sketch {
     private double                yPadding    = 0.02;
     private double                zPadding    = 0.01;
     private Random                seedGen     = new Random();
-    private ArrayList<Thread>     threadList  = new ArrayList<>();
+    private long                  nanoTimeTotal = 0;
+    private long                  nanoTimeCount = 0;
 
     protected NoiseCloud(String name, NoiseGenerator generator) {
         super(name);
@@ -47,8 +47,7 @@ public class NoiseCloud extends Sketch {
 
     @Override
     public void draw(SketchCanvas canvas) {
-        if (!threadList.isEmpty())
-            threadList.clear();
+        long end, begin = System.nanoTime();
         canvas.clear();
         int W = dim.width;
         int H = dim.height;
@@ -63,6 +62,12 @@ public class NoiseCloud extends Sketch {
                 yOff += yPadding;
             }
         });
+        end = System.nanoTime();
+        nanoTimeCount++;
+        nanoTimeTotal += end - begin;
+        if (nanoTimeCount % 100 == 0) {
+            System.out.println("Average compute time : " + (nanoTimeTotal / nanoTimeCount) / 1000000 + " ms");
+        }
         zOff += zPadding;
         canvas.image(img);
     }

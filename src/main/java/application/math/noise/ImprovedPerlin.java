@@ -41,6 +41,7 @@ public class ImprovedPerlin extends NoiseGenerator {
     }
 
     private double perlin(double x, double y, double z) {
+
         x += seed;
         y += seed;
         z += seed;
@@ -91,17 +92,6 @@ public class ImprovedPerlin extends NoiseGenerator {
         return num;
     }
 
-    /*
-     * private static double grad(int hash, double x, double y, double z) { int h =
-     * hash & 15; double u = h < 8 ? x : y;
-     *
-     * double v;
-     *
-     * if (h < 4) v = y; else if (h == 12 || h == 14) v = x; else v = z;
-     *
-     * return ((h & 1) == 0 ? u : -u) + ((h & 2) == 0 ? v : -v); }
-     */
-
     private static double fade(double t) {
         return t * t * t * (t * (t * 6 - 15) + 10);
     }
@@ -113,40 +103,40 @@ public class ImprovedPerlin extends NoiseGenerator {
     // Faster and simplier than grad()
     private static double grad(int hash, double x, double y, double z) {
         switch (hash & 0xF) {
-        case 0x0:
-            return x + y;
-        case 0x1:
-            return -x + y;
-        case 0x2:
-            return x - y;
-        case 0x3:
-            return -x - y;
-        case 0x4:
-            return x + z;
-        case 0x5:
-            return -x + z;
-        case 0x6:
-            return x - z;
-        case 0x7:
-            return -x - z;
-        case 0x8:
-            return y + z;
-        case 0x9:
-            return -y + z;
-        case 0xA:
-            return y - z;
-        case 0xB:
-            return -y - z;
-        case 0xC:
-            return y + x;
-        case 0xD:
-            return -y + z;
-        case 0xE:
-            return y - x;
-        case 0xF:
-            return -y - z;
-        default:
-            return 0; // never happens
+            case 0x0:
+                return x + y;
+            case 0x1:
+                return -x + y;
+            case 0x2:
+                return x - y;
+            case 0x3:
+                return -x - y;
+            case 0x4:
+                return x + z;
+            case 0x5:
+                return -x + z;
+            case 0x6:
+                return x - z;
+            case 0x7:
+                return -x - z;
+            case 0x8:
+                return y + z;
+            case 0x9:
+                return -y + z;
+            case 0xA:
+                return y - z;
+            case 0xB:
+                return -y - z;
+            case 0xC:
+                return y + x;
+            case 0xD:
+                return -y + z;
+            case 0xE:
+                return y - x;
+            case 0xF:
+                return -y - z;
+            default:
+                return 0; // never happens
         }
     }
 

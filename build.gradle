@@ -1,18 +1,15 @@
 buildscript {
+    repositories {
+        mavenCentral()
+    }
     dependencies {
         classpath group: 'de.dynamicfiles.projects.gradle.plugins', name: 'javafx-gradle-plugin', version: '8.8.2'
-    }
-    
-    repositories {
-        mavenLocal()
-        mavenCentral()
     }
 }
 
 apply plugin: 'java'
 
 repositories {
-	mavenLocal()
     mavenCentral()
 }
 
@@ -27,7 +24,7 @@ jfx {
 }
 
 dependencies {
-	
+	compile group: 'com.aparapi', name: 'aparapi', version: '1.4.1'
 }
 
 // Apply the java-library plugin to add support for Java Library
