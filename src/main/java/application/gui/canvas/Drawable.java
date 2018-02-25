@@ -16,25 +16,37 @@ public interface Drawable {
 
     Paint getStroke();
 
-    void setStroke(int gray);
+    Paint setStroke(int gray);
 
-    void setStroke(int r, int g, int b);
+    Paint setStroke(Paint stroke);
 
-    void setFill(int gray);
+    Paint setFill(Paint fill);
 
-    void setFill(int r, int g, int b);
+    Paint setStroke(int r, int g, int b);
+
+    Paint setFill(int gray);
+
+    Paint setFill(int r, int g, int b);
 
     void fillRect(double x, double y, double w, double h);
 
     void strokeRect(double x, double y, double w, double h);
 
+    void strokeCenteredRect(double x, double y, double w, double h);
+
+    void fillCenteredRect(double x, double y, double w, double h);
+
     void fillText(Object text, double x, double y);
 
     void strokeText(Object text, double x, double y);
 
-    void fillPoint(int x, int y);
+    void fillPoint(double x, double y);
 
-    void strokePoint(int x, int y);
+    void strokePoint(double x, double y);
+
+    void strokeCircle(double x, double y, double r);
+
+    void fillCircle(double x, double y, double r);
 
     void image(Image img);
 

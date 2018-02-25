@@ -13,7 +13,4 @@ public abstract class AutoUpdateCanvas extends Canvas implements Drawable {
         super(width, height);
     }
 
-    @Override
-    public abstract void draw();
-
 }

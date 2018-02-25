@@ -10,11 +10,13 @@ public class Main extends Application {
 
     public static final boolean PRODUCTION = false;
 
+    public static GUIController CONTROLLER_INSTANCE;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Thread.setDefaultUncaughtExceptionHandler(Main::handleUncaughtException);
         try {
-            new GUIController(primaryStage);
+            CONTROLLER_INSTANCE = new GUIController(primaryStage);
         } catch (Exception e) {
             handleUncaughtException(Thread.currentThread(), e);
         }

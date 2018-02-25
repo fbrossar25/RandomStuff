@@ -24,7 +24,6 @@ jfx {
 }
 
 dependencies {
-	compile group: 'com.aparapi', name: 'aparapi', version: '1.4.1'
 }
 
 // Apply the java-library plugin to add support for Java Library

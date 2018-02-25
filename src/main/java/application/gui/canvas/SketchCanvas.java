@@ -120,25 +120,39 @@ public class SketchCanvas extends AutoUpdateCanvas {
     }
 
     @Override
-    public void setStroke(int gray) {
-        setStroke(gray, gray, gray);
+    public Paint setFill(Paint fill) {
+        ctx.setFill(fill);
+        return fill;
     }
 
     @Override
-    public void setStroke(int r, int g, int b) {
+    public Paint setStroke(Paint stroke) {
+        ctx.setStroke(stroke);
+        return stroke;
+    }
+
+    @Override
+    public Paint setStroke(int gray) {
+        return setStroke(gray, gray, gray);
+    }
+
+    @Override
+    public Paint setStroke(int r, int g, int b) {
         stroke = Color.rgb(r % 256, g % 256, b % 256);
         ctx.setStroke(stroke);
+        return stroke;
     }
 
     @Override
-    public void setFill(int gray) {
-        setFill(gray, gray, gray);
+    public Paint setFill(int gray) {
+        return setFill(gray, gray, gray);
     }
 
     @Override
-    public void setFill(int r, int g, int b) {
+    public Paint setFill(int r, int g, int b) {
         fill = Color.rgb(r % 256, g % 256, b % 256);
         ctx.setFill(fill);
+        return fill;
     }
 
     @Override
@@ -162,12 +176,12 @@ public class SketchCanvas extends AutoUpdateCanvas {
     }
 
     @Override
-    public void fillPoint(int x, int y) {
+    public void fillPoint(double x, double y) {
         ctx.fillRect(x, y, 1, 1);
     }
 
     @Override
-    public void strokePoint(int x, int y) {
+    public void strokePoint(double x, double y) {
         ctx.strokeRect(x, y, 1, 1);
     }
 
@@ -194,5 +208,27 @@ public class SketchCanvas extends AutoUpdateCanvas {
     @Override
     public GraphicsContext getContext() {
         return ctx;
+    }
+
+    @Override
+    public void strokeCircle(double x, double y, double r) {
+        double r2 = r / 2.0;
+        ctx.strokeOval(x - r2, y - r2, r, r);
+    }
+
+    @Override
+    public void fillCircle(double x, double y, double r) {
+        double r2 = r / 2.0;
+        ctx.fillOval(x - r2, y - r2, r, r);
+    }
+
+    @Override
+    public void strokeCenteredRect(double x, double y, double w, double h) {
+        strokeRect(x - w / 2, y - h / 2, w, h);
+    }
+
+    @Override
+    public void fillCenteredRect(double x, double y, double w, double h) {
+        fillRect(x - w / 2, y - h / 2, w, h);
     }
 }

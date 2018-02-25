@@ -73,7 +73,6 @@ public class MathUtils {
         double effectiveAngle = angle > Math.PI ? angle - 2.0 * Math.PI : angle, dx = p.getX() - c.getX(), dy = p.getY() - c.getY(),
                 cos = Math.cos(effectiveAngle), sin = Math.sin(effectiveAngle), rx = cos * dx + sin * dy + c.getX(),
                 ry = cos * dy - sin * dx + c.getY();
-        ;
         return new Point2D(rx, ry);
     }
 }
